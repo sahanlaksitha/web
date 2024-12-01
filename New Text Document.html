@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
+  <style>
+    header {
+   margin-bottom: 2px; /* Add spacing below the header */
+  margin-top: 2px;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-weight: bold;
+   
+  font-size: 4rem;
+  color: white; /* Inner text color */
+ 
+  
+      
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-image: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgmF3EcxIO3kw8rvUETRnhrKK6Ge1onoBVPmVrFJfUO1QErTjdIocDrhhDcepgtCWj82RK0kQNVwUzYFGUFo7nP4IKYtQ-xYYSaOMw2vj5iCFmHiXA4ts6fHWa9LMj2FGfNZiCWLictJ52FIACimqDPQkJEOLhxt0nWVHHo4pRm045lOFmmQRia7lgeK7s/s3840/train-coming-out-of-tunnel-5n.jpg"); /* Replace with your image URL */
+  background-size: cover; /* Make the image cover the entire background */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent tiling */
+  
+}
+    .countdown {
+      text-align: center;
+      background: hsla(0, 0%, 87%, 0);
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      
+    }
+    .countdown-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px; /* Space between time blocks */
+    }
+    .time-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .time {
+      font-size: 7rem;
+      
+      font-weight: bold;
+      color: #ffffffbe; /* Inner text color */
+    
+    
+    }
+    .label {
+      font-size: 1rem;
+      color: hsl(0, 5%, 85%);
+      margin-top: 5px;
+    }
+    .separator {
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 7rem;
+      font-weight: bold;
+      color: #ffffffa1;
+      line-height: 1; /* Ensures alignment */
+      margin-top: -5px
+    }
+  </style>
+</head>
+
+
+<body>
+ <header>
+  <h1 >Time to Exam</h1>
+</header>
+<div class="countdown">
+  <div class="countdown-container" id="countdown">
+    <!-- Time blocks and separators will be dynamically generated -->
+  </div>
+</div>
+
+  <script>
+    function updateCountdown() {
+      const targetDate = new Date("November 25, 2024 00:00:00").getTime();
+      const now = new Date().getTime();
+      const timeDifference = targetDate - now;
+
+      if (timeDifference < 0) {
+        document.getElementById("countdown").innerHTML = "The countdown is over!";
+        return;
+      }
+
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+      // Format as two-digit numbers
+      const formattedDays = String(days).padStart(2, "0");
+      const formattedHours = String(hours).padStart(2, "0");
+      const formattedMinutes = String(minutes).padStart(2, "0");
+      const formattedSeconds = String(seconds).padStart(2, "0");
+
+      // Update the countdown dynamically with separators
+      document.getElementById("countdown").innerHTML = `
+        <div class="time-block">
+          <div class="time">${formattedDays}</div>
+          <div class="label">Days</div>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-block">
+          <div class="time">${formattedHours}</div>
+          <div class="label">Hours</div>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-block">
+          <div class="time">${formattedMinutes}</div>
+          <div class="label">Minutes</div>
+        </div>
+        <div class="separator">:</div>
+        <div class="time-block">
+          <div class="time">${formattedSeconds}</div>
+          <div class="label">Seconds</div>
+        </div>
+      `;
+    }
+
+    // Update the countdown every second
+    setInterval(updateCountdown, 1000);
+    // Initial call to display immediately
+    updateCountdown();
+  </script>
+</body>
+</html>
